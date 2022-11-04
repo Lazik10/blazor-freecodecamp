@@ -1,0 +1,122 @@
+﻿@page "/databinding"
+@using BlazorFreeCodeCamp.ViewModels
+
+<h3>DataBinding</h3>
+
+@*One-Way data binding*@
+Text
+<br/>
+<p>
+    Name: @person.FirstName
+</p>
+<p>
+    Salary: @person.Salary.ToString("c")
+</p>
+<br/>
+<br/>
+
+@*Two-Way data binding*@
+Input Number
+<p>
+    <input type="number" @bind-value="person.Salary"/>
+</p>
+<p>
+    <input type="number" @bind-value="person.Salary" @bind-value:event="oninput" />
+</p>
+
+@*Checkbox*@
+<p>
+    Checkbox:
+    <label>
+        <input type="checkbox" @bind-value="person.IsActive" /> &nbsp;Is Active
+    </label>
+    <br/>
+    Is Active: @person.IsActive
+</p>
+<br/>
+<br/>
+@*RadioButton*@
+<p>
+    RadioButton:
+    <br/>
+    <label> @*name represents radio button group*@
+        <input type="radio" value="1" name="YesNo" checked="@(radioBtnSelected == 1)" @onclick="@(() => radioBtnSelected = 1)"/> Yes
+        <input type="radio" value="2" name="YesNo" checked="@(radioBtnSelected == 2)" @onclick="@(() => radioBtnSelected = 2)"/> No
+    </label>
+    <br/>
+    Radio button checked: @radioBtnSelected
+</p>
+<br/>
+<br/>
+@*Select Menu*@
+<p>
+    Select Menu:
+    <br/>
+    <select @bind="selectedItem">
+        <option value="0"></option>
+        @foreach (var address in person.Addresses)
+        {
+            <option value="@address.Id">@address.City</option>
+        }
+    </select>
+    <br/>
+    Selected item ID in list is: @selectedItem
+</p>
+<br/>
+<br/>
+@*List*@
+Unordered List
+<ul>
+    @foreach (var address in person.Addresses)
+    {
+        <li>@address.State, @address.City, @address.Street</li>
+    }
+</ul>
+<br/>
+<br/>
+@*Table*@
+<p>
+    <table class="table">
+        @foreach (var address in person.Addresses)
+        {
+            <tr>
+                <td>@address.State</td>
+                <td>
+                    <input type="text"
+                    @bind-value=@address.City
+                    @bind-value:event="oninput" />
+                </td>
+                <td>@address.Street</td>
+            </tr>
+        }
+    </table>
+</p>
+
+@code {
+
+    PersonViewModel person = new();
+    int radioBtnSelected = 0;
+    int selectedItem = 0;
+
+    // First we need to override OnInitialized() method
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        radioBtnSelected = 0;
+        selectedItem = 0;
+
+        person = new PersonViewModel
+        {
+            FirstName = "Lazik",
+            LastName = "Lazik",
+            IsActive = false,
+            Salary = 100000m,
+            Addresses = new List<Address> 
+            {
+                new Address{ Id = 1, City = "Jesenice", Street = "V Roháči", State = "Czech Republic" },
+                new Address{ Id = 2, City = "Trutnov", Street = "Slunečná", State = "Czech Republic"}
+            }
+        };
+    }
+}

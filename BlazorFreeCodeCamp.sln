@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorFreeCodeCamp", "BlazorFreeCodeCamp\BlazorFreeCodeCamp.csproj", "{C584DD18-1F01-41AC-BF5B-9017FFDD477A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorFreeCodeCamp", "BlazorFreeCodeCamp\BlazorFreeCodeCamp.csproj", "{C584DD18-1F01-41AC-BF5B-9017FFDD477A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
