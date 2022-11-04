@@ -5,6 +5,9 @@
 *@
 @page "/examplepage"
 
+@*For passing parameter example*@
+@using BlazorFreeCodeCamp.Components.PassingParameters
+
 @* Or full path 
 @inherits Components.BaseComponents.DateTimeBaseComponent 
 - it depeds if we are using _Imports.razor page to import this namespace there
@@ -26,11 +29,15 @@ Today is:&nbsp;
 @*Inherited component public variable*@
 Today is:&nbsp; @dateTime
 
-
 <br/>
 <br/>
 @*This is page component added to the page*@
 <Index />
+
+<br/>
+<br/>
+@*Passing parametr example*@
+<TitleComponent TeamName="Arsenal"></TitleComponent>
 
 
 @*
