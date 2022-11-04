@@ -7,6 +7,8 @@
 
 @*For passing parameter example*@
 @using BlazorFreeCodeCamp.Components.PassingParameters
+@*For cascading parameter example*@
+@using BlazorFreeCodeCamp.Components.CascadingParameters
 
 @* Or full path 
 @inherits Components.BaseComponents.DateTimeBaseComponent 
@@ -39,12 +41,24 @@ Today is:&nbsp; @dateTime
 @*Passing parametr example*@
 <TitleComponent TeamName="Arsenal"></TitleComponent>
 
+<br/>
+<br/>
+@*
+    Cascading parameter example
+    - Can only be cascaded down
+*@
+<CascadingValue Name="ExamplePageCounter" Value="@Counter">
+    @* For cascading static value we can pass it with IsFixed attribute for better performance *@
+    <CascadingValue Name="ExamplePageColor" Value=@("blue") IsFixed="true">
+        <TopLevelComponent />
+    </CascadingValue>
+</CascadingValue>
 
 @*
     C# code block has responsibility for UI logic
 *@
 @code {
-
+    public int Counter = 1;
 }
 
 @*

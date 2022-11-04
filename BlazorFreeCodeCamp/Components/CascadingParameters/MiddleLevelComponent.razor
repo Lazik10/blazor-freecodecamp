@@ -1,0 +1,8 @@
+﻿<h3 style="color:@Color">MiddleLevelComponent</h3>
+
+<BottomLevelComponent />
+
+@code {
+    [CascadingParameter(Name = "ExamplePageColor")]
+    public string Color { get; set; } = string.Empty;
+}
