@@ -5,6 +5,11 @@
 *@
 @page "/examplepage"
 
+@* Or full path 
+@inherits Components.BaseComponents.DateTimeBaseComponent 
+- it depeds if we are using _Imports.razor page to import this namespace there
+*@
+@inherits DateTimeBaseComponent
 
 @*
     HTML markup section has responsibility for how the page looks
@@ -15,10 +20,15 @@
 <br/>
 <br/>
 Today is:&nbsp;
-
 @*This is component added to the page (closing tag can't be simplyfied')*@
 <TimeComponent></TimeComponent>
+<br/>
+@*Inherited component public variable*@
+Today is:&nbsp; @dateTime
 
+
+<br/>
+<br/>
 @*This is page component added to the page*@
 <Index />
 
