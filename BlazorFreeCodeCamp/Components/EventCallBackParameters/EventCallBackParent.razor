@@ -1,0 +1,28 @@
+﻿<h3>EventCallBackParent</h3>
+
+<p>
+    Button in child component was clicked @numberOfClicks times.
+</p>
+
+<div style="margin-left:10px">
+    @* 3) Third we need to register a method to the EventCallBack member *@
+    @* 3a) Third we need to register a method to the Action member*@
+    <EventCallBackChild 
+        EventCallBackParameter="UpdateNumberOfClicks"
+        ActionParameter="UpdateNumberOfClicks"
+    />
+</div>
+
+
+@code {
+    private int numberOfClicks;
+
+    // The parameter value is passed from EventCallBack parameter as a value
+    private void UpdateNumberOfClicks(int value)
+    {
+        numberOfClicks = value;
+
+        // 4a) This stem is required when using only Action delegate, it will trigger the UI rendering again
+        StateHasChanged();
+    }
+}

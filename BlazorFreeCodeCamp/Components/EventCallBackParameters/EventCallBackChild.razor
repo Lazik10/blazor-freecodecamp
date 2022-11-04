@@ -1,0 +1,34 @@
+﻿<h3>EventCallBackChild</h3>
+
+<button @onclick="IncrementClickCount">
+    Click Me
+</button>
+
+@code {
+    // 1) First we need to define CallBack parameter
+    // It is very similar to delegate, but when we are invoking it, we don't have to check if it is empty or not
+    // in other words if we don't hook it up with some method it will not throw exception
+    [Parameter]
+    public EventCallback<int> EventCallBackParameter { get; set; }
+
+    // 1a) But with delegate (Action)
+    [Parameter]
+    public Action<int> ActionParameter { get; set; }
+
+    private int numberOfButtonClicks = 0;
+
+    private void IncrementClickCount()
+    {
+        numberOfButtonClicks++;
+
+        // 2) Second we need to invoke that CallBack parameter
+        // Once again, it will not throw an exception if there is no method registered to this delegate
+        //EventCallBackParameter.InvokeAsync(numberOfButtonClicks);
+
+        // 2a) Second we need to invoke that Action
+        ActionParameter?.Invoke(numberOfButtonClicks);
+        // but that code will not work, because we are triggering this from child component, the value is updated in the parent,
+        // but the parent component doesn't know it should re-render it's content, so we need to call StateHasChanged() in the parent
+        // registered method, in this case in UpdateNumberOfClicks()
+    }
+}

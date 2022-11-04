@@ -6,6 +6,7 @@
 @page "/examplepage"
 
 @*For passing parameter example*@
+@using BlazorFreeCodeCamp.Components.EventCallBackParameters
 @using BlazorFreeCodeCamp.Components.PassingParameters
 @*For cascading parameter example*@
 @using BlazorFreeCodeCamp.Components.CascadingParameters
@@ -53,6 +54,10 @@ Today is:&nbsp; @dateTime
         <TopLevelComponent />
     </CascadingValue>
 </CascadingValue>
+
+<br/>
+<br/>
+<EventCallBackParent />
 
 @*
     C# code block has responsibility for UI logic
