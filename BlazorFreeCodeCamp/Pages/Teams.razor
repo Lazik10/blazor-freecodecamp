@@ -1,0 +1,32 @@
+﻿@*
+    Routes
+*@
+@page "/teams"
+@using BlazorFreeCodeCamp.ViewModels
+
+<h3>Teams</h3>
+
+@foreach (var team in _teams)
+{
+    <li>
+        <a href=@($"/team/{@team.Id}")>@team.Name</a>
+    </li>
+}
+
+@code {
+    public List<TeamViewModel> _teams { get; set; } = new();
+    public List<PersonViewModel> _teamMembers { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _teamMembers.Add(new PersonViewModel { FirstName = "Lazik", LastName = "Lazik", IsActive = false, Salary = 100000m });
+        _teamMembers.Add(new PersonViewModel { FirstName = "Patrik", LastName = "Laska", IsActive = true, Salary = 200000m });
+        _teamMembers.Add(new PersonViewModel { FirstName = "Tadeas", LastName = "Laska", IsActive = false, Salary = 500000m });
+
+        _teams.Add(new TeamViewModel { Id = 1, Name = "Arsenal", Nationality = "ENG", TeamMembers = _teamMembers });
+        _teams.Add(new TeamViewModel { Id = 2, Name = "Chelsea", Nationality = "ENG", TeamMembers = _teamMembers });
+        _teams.Add(new TeamViewModel { Id = 3, Name = "Liverpool", Nationality = "ENG", TeamMembers = _teamMembers });
+    }
+}

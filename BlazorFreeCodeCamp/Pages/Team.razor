@@ -1,0 +1,32 @@
+﻿@*
+    Route with parameters
+*@
+@page "/team/{id:int}"
+@using BlazorFreeCodeCamp.ViewModels
+
+<h3>Team Members</h3>
+
+@foreach (var teamMember in _persons)
+{
+    if (teamMember.Id == this.Id)
+    {
+        @teamMember.FirstName @("  ") @teamMember.LastName
+    }
+}
+
+@code {
+    // Team Id, if we want to use route parameter we need to add this attribute [Parameter]
+    [Parameter]
+    public int Id { get; set; }
+
+    public List<PersonViewModel> _persons = new();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _persons.Add(new PersonViewModel { Id = 1, FirstName = "Lazik", LastName = "Lazik", IsActive = false, Salary = 100000m });
+        _persons.Add(new PersonViewModel { Id = 2, FirstName = "Patrik", LastName = "Laska", IsActive = true, Salary = 200000m });
+        _persons.Add(new PersonViewModel { Id = 3, FirstName = "Tadeas", LastName = "Laska", IsActive = false, Salary = 500000m });
+    }
+}
