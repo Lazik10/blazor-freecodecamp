@@ -6,10 +6,13 @@
 @page "/examplepage"
 
 @*For passing parameter example*@
-@using BlazorFreeCodeCamp.Components.EventCallBackParameters
 @using BlazorFreeCodeCamp.Components.PassingParameters
+@*For eventcallback example*@
+@using BlazorFreeCodeCamp.Components.EventCallBackParameters
 @*For cascading parameter example*@
 @using BlazorFreeCodeCamp.Components.CascadingParameters
+@*For referencing child components example*@
+@using BlazorFreeCodeCamp.Components.ReferencingChildComponents
 
 @* Or full path 
 @inherits Components.BaseComponents.DateTimeBaseComponent 
@@ -58,6 +61,10 @@ Today is:&nbsp; @dateTime
 <br/>
 <br/>
 <EventCallBackParent />
+
+<br/>
+<br/>
+<ParentComponent />
 
 @*
     C# code block has responsibility for UI logic

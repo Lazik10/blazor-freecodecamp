@@ -1,0 +1,22 @@
+﻿@if (DisplayOrShown)
+{
+    <h3>ChildComponent</h3>
+}
+
+@code {
+    private bool DisplayOrShown { get; set; } = false;
+
+    public void DisplayChild()
+    {
+        DisplayOrShown = !DisplayOrShown;
+
+        // Don't forget to re-render itself when called from another component
+        StateHasChanged();
+
+        // Component will re-render itself only when it meets one of four conditions
+        // - 1: When component is created
+        // - 2: When parameter value changes
+        // - 3: When there are event handlers
+        // - 4: When developer force it to rerender with StateHasChanged() method
+    }
+}
