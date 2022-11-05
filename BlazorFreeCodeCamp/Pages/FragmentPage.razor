@@ -1,0 +1,30 @@
+﻿@page "/fragments"
+
+@using BlazorFreeCodeCamp.Components.TemplatedComponents.RenderFragment
+
+<h3>FragmentPage</h3>
+
+<RenderFragmentComponents>
+    @* 3) Use that public RenderFragment member and insert HTML it should insert into that fragment *@
+    <Fragment>
+        <h1 style="color:red">This is first fragment</h1>
+    </Fragment>
+</RenderFragmentComponents>
+
+<RenderFragmentComponents>
+    <Fragment>
+        <h2 style="color:blue">This is second fragment</h2>
+    </Fragment>
+</RenderFragmentComponents>
+
+<RenderFragmentComponents>
+    <Fragment>
+        <h3 style="color:green">This is third fragment</h3>
+    </Fragment>
+</RenderFragmentComponents>
+
+<hr/>
+
+@code {
+
+}
