@@ -1,0 +1,19 @@
+﻿@typeparam TItem
+
+<h3>GenericTypedRenderFragment</h3>
+
+@foreach (var item in Items)
+{
+    // 3) We can use that render fragment member, but we need to pass to that fragment an item of TItem type
+    @ItemInfo(item)
+}
+
+@code {
+    // 1) Create generic RenderFragment member with parameter attribute
+    [Parameter]
+    public RenderFragment<TItem> ItemInfo { get; set; } = default!;
+
+    // 2) We also need the TItem type source (for example a list)
+    [Parameter]
+    public List<TItem> Items { get; set; } = new ();
+}

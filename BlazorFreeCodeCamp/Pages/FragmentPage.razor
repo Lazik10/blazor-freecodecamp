@@ -29,6 +29,18 @@
 @* 3) Pass the parameters *@
 <GenericTypedItemList List="_people" ExcludeColumns="Id"/>
 
+<hr/>
+@* 4) Pass the parameters 
+    - Items - source for the RenderFragment part, it also specifies the TItem type
+*@
+<GenericTypedRenderFragment Items="_people">
+    @* 5) Render Fragment part *@
+    <ItemInfo Context="person"> @* 6) Make alias/name for the item provided to the RenderFragment *@
+        <div>@person.Id, @person.FirstName, @person.LastName, <br/> @person.Salary</div>
+    </ItemInfo>
+</GenericTypedRenderFragment>
+
+
 @code {
     private List<PersonViewModel> _people = new List<PersonViewModel>();
 
