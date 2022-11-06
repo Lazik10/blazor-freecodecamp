@@ -1,0 +1,66 @@
+﻿@using System.Reflection
+@typeparam TItem
+
+<h3>GenericTypedItemList</h3>
+
+@if(_members.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                @foreach (var member in _members)
+                {
+                    @if (member.MemberType == MemberTypes.Property &&
+                        !ExcludeColumns.Contains(member.Name))
+                    {
+                        <th>@member.Name</th>
+                    }
+                }
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (List.Count > 0 && _members.Count > 0)
+            {
+                @foreach (var item in List)
+                {
+                    <tr>
+                    @foreach(var property in _members)
+                    {
+                        if (item is not null && property.MemberType == MemberTypes.Property
+                            && !ExcludeColumns.Contains(property.Name))
+                        {
+                            <td>
+                                @item?.GetType()?.GetProperty(property.Name)?.GetValue(item)
+                            </td>
+                        }
+                    }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<MemberInfo> _members = new();
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        // 2) Use that parameter to create another list of members
+        if (List is not null && List.Any())
+        {
+            Type typeOfTItem = this.List[0].GetType();
+            _members = typeOfTItem.GetMembers().ToList();
+        }
+    }
+
+    // 1) Define parameter with list
+    [Parameter]
+    public List<TItem> List { get; set; } = new List<TItem>();
+
+    [Parameter]
+    public string ExcludeColumns { get; set; } = string.Empty;
+}

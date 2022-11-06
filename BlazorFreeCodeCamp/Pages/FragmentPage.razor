@@ -1,6 +1,7 @@
 ﻿@page "/fragments"
 
 @using BlazorFreeCodeCamp.Components.TemplatedComponents.RenderFragment
+@using BlazorFreeCodeCamp.ViewModels
 
 <h3>FragmentPage</h3>
 
@@ -25,6 +26,18 @@
 
 <hr/>
 
-@code {
+@* 3) Pass the parameters *@
+<GenericTypedItemList List="_people" ExcludeColumns="Id"/>
 
+@code {
+    private List<PersonViewModel> _people = new List<PersonViewModel>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _people.Add(new PersonViewModel { FirstName = "Lazik", LastName = "Lazik", IsActive = false, Salary = 100000m });
+        _people.Add(new PersonViewModel { FirstName = "Patrik", LastName = "Laska", IsActive = true, Salary = 200000m });
+        _people.Add(new PersonViewModel { FirstName = "Tadeas", LastName = "Laska", IsActive = false, Salary = 500000m });
+    }
 }
