@@ -33,15 +33,43 @@
 @* 4) Pass the parameters 
     - Items - source for the RenderFragment part, it also specifies the TItem type
 *@
-<GenericTypedRenderFragment Items="_people">
+<GenericTypedRenderFragment @ref="TRenderFragment" Items="_people"> @* 4a) @ref so we can reference this fragment with private member TRenderFragment *@
+    <Header />
     @* 5) Render Fragment part *@
     <ItemInfo Context="person"> @* 6) Make alias/name for the item provided to the RenderFragment *@
         <div>@person.Id, @person.FirstName, @person.LastName, <br/> @person.Salary</div>
+        <div>
+            @* 
+                5a) With this on click event we invoke EditPerson method with person as an argument 
+
+                !!! DISCLAIMER !!! - Usually changing a public member of child component is not enough to force the child element to re-render itself,
+                                     but because this renderfragment is used to handle OnClick event of a mouse button it also forces rerender itself and the whole component
+                                     it is in (at least that is how I understand it, more about lifecycle of components in future chapters)
+            *@
+            <button type="button" @onclick="@(() => { EditPerson(person); } )"> Edit </button>
+        </div>
     </ItemInfo>
+    <Footer />
+
+    @* 7a) Since we got generic type into this RenderFragment we can now set it's alias/name through Context and use it *@
+    <EditTemplate Context="CurrentCustomer">
+        <div>
+            <text>Id: </text> <input @bind-value="CurrentCustomer.Id"/>
+        </div>
+        <div>
+            <text>First Name: </text> <input @bind-value="CurrentCustomer.FirstName"/>
+        </div>
+        <div>
+            <text>Last Name: </text> <input @bind-value="CurrentCustomer.LastName"/>
+        </div>
+    </EditTemplate>
 </GenericTypedRenderFragment>
 
 
 @code {
+    // 4a) Create private member of a GenericTypedRenderFragment (whole component) so we can reference it with member variable 
+    private GenericTypedRenderFragment<PersonViewModel> TRenderFragment = default!;
+
     private List<PersonViewModel> _people = new List<PersonViewModel>();
 
     protected override void OnInitialized()
@@ -51,5 +79,11 @@
         _people.Add(new PersonViewModel { FirstName = "Lazik", LastName = "Lazik", IsActive = false, Salary = 100000m });
         _people.Add(new PersonViewModel { FirstName = "Patrik", LastName = "Laska", IsActive = true, Salary = 200000m });
         _people.Add(new PersonViewModel { FirstName = "Tadeas", LastName = "Laska", IsActive = false, Salary = 500000m });
+    }
+
+    // 6a) Providing person to the child component
+    private void EditPerson(PersonViewModel person)
+    {
+        TRenderFragment.EditItem = person;
     }
 }

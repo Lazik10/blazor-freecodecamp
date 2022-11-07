@@ -2,18 +2,42 @@
 
 <h3>GenericTypedRenderFragment</h3>
 
+@Header
 @foreach (var item in Items)
 {
     // 3) We can use that render fragment member, but we need to pass to that fragment an item of TItem type
     @ItemInfo(item)
 }
+@Footer
+
+@* Probably better logic when to show this fragment at this moment it would show when we get EditItem, but it would never disappear from now on *@
+@if (EditItem is not null)
+{
+    // 3a) Here we provide that generic TItem type stored in generic TItem type member
+    @EditTemplate(EditItem)
+}
 
 @code {
+    [Parameter] // HEADER
+    public RenderFragment Header { get; set; } = default!;
     // 1) Create generic RenderFragment member with parameter attribute
-    [Parameter]
+    [Parameter] // ROW
     public RenderFragment<TItem> ItemInfo { get; set; } = default!;
+    [Parameter] // FOOTER
+    public RenderFragment Footer { get; set; } = default!;
 
     // 2) We also need the TItem type source (for example a list)
     [Parameter]
     public List<TItem> Items { get; set; } = new ();
+
+
+
+    // Another usage of generic RenderFragment<T> component
+
+    // 1a) We create generic type RenderFragment which takes and argument of TItem type
+    [Parameter]
+    public RenderFragment<TItem> EditTemplate { get; set; } = default!;
+    
+    // 2a) Generic type item used as a parameter in EditTemplate render fragment
+    public TItem EditItem { get; set; } = default!;
 }
