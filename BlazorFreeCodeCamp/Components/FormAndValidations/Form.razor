@@ -1,0 +1,68 @@
+﻿@using BlazorFreeCodeCamp.ViewModels
+<h3>Form</h3>
+
+@* 1) User EditForm component *@
+<EditForm Model="formModel"
+          OnValidSubmit="ValidFormSubmitted" 
+          OnInvalidSubmit="InvalidFormSubmitted">
+          @* 3) Every Form has to be bind to a model class
+                To handle valid or invalid submit of a form, we set which method is used when *@
+
+    @* 6) In order to trigger the validation and display the validation messages we need to add 
+        <DataAnnotationValidator> and <DataAnnotationSummary>
+    *@
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+
+    @* 2) compose EditForm with another components InputText, InputDate, InputNumber and many more *@
+    <label>
+        First name:
+        <br/> @* 4) bind-Value (UPPER LETTER V is IMPORTANT) to a model class *@
+        <InputText id="firstName" @bind-Value="formModel.FirstName"> </InputText>
+    </label>
+    <br/>
+    <label>
+        Last name:
+        <br/>
+        <InputText id="lastName" @bind-Value="formModel.LastName"> </InputText>
+    </label>
+    <br/>
+    <label>
+        Phone number:
+        <br/>
+        <InputText id="phoneNumber" @bind-Value="formModel.PhoneNumber"> </InputText>
+    </label>
+    <br/>
+    @*<InputFile> </InputFile>*@
+    @*<InputCheckbox> </InputCheckbox>*@
+    @*<InputDate> </InputDate>*@
+    @*<InputRadio> </InputRadio>*@
+    @*<InputTextArea></InputTextArea>*@
+    @*<InputSelect></InputSelect>*@
+
+    <input type="submit" value="Submit" />
+    @* If we use <button> here it will automatically behave like submit button, if we want to use regular button
+        we need to use <button type="button" explicitly
+    *@
+</EditForm>
+
+@code {
+    private FormModel formModel { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        formModel = new();
+    }
+
+    private void ValidFormSubmitted()
+    {
+        // Do something here...
+    }
+
+    private void InvalidFormSubmitted()
+    {
+        // Do something here...
+    }
+}
