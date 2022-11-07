@@ -1,0 +1,69 @@
+﻿//////////////////////////////////////
+/////     Server-Side Blazor     /////
+//////////////////////////////////////
+
+Lifecycle A1 (First Render)
+
+FIRST PART - User request (Browser request)
+- first time rendering or when refreshing the page
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Parent - SetParametersAsync
+Parent - OnInitialized
+Parent - OnParametersSet
+    Child - SetParametersAsync
+    Child - OnInitialized
+    Child - OnParametersSet
+
+Also SignalR is established with JavaScript
+
+
+SECOND PART - SignalR request
+- this second render is only used when rendering for the first time (after establishing SignalR connection)
+  if we navigate to the page and click back, the SignalR is already established so the page will render once
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Parent - SetParametersAsync
+Parent - OnInitialized
+Parent - OnParametersSet
+    Child - SetParametersAsync
+    Child - OnInitialized
+    Child - OnParametersSet
+
+
+THIRD PART -
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Parent - ShouldRender() - used only if it's not rendered for the first time
+Parent - OnAfterRender()
+    Child - ShouldRender()
+    Child - OnAfterRender()
+
+
+When we initialize our data we should pay attention to where to initialize them
+Best way is to initialize the data in OnAfterRenderAsync with parameter that indicates if it is a first time or not
+it depends if we are using the data to render the page or not, we can also use StateHasChanged() method to rerender the page again
+
+/////////////////////////////////
+/////     Web Assembly     //////
+/////////////////////////////////
+
+- There is no second rendering because there is no SignalR
+
+
+Lifecycle A2 (Button's event for example)
+
+- if it doesn't change child parameter it will only invoke these events
+
+Button - Event()
+Parent - ShouldRender()
+Parent - OnAfterRender()
+
+- if it changes child parameter it will invoke these events
+
+Button - Event()
+Parent - ShouldRender()
+    Child - SetParameters()
+    Child - OnParametersSet()
+    Child - SouldRender()
+Parent - OnAfterRender()
+    Child - OnAfterRender()
+ 
