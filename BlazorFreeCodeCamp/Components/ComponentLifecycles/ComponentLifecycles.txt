@@ -1,0 +1,20 @@
+﻿When do components render?
+
+A1) When component is created
+    - When page is first loaded
+    - When page is refreshed
+    - When we navigate to another page and then navigate back
+
+A2) When components' events are triggered
+    - It has to be an UI event (mouse click an so on) - It will not re-render if we use our own custom events (e.g. Timed event with Timer class)
+    
+    - IMPORTANT - If UI event is fired from parent component the child components will not re-render
+    - EXCEPTION TO THIS BEHAVIOUR - RenderFragment component
+                                  - if we trigger UI event in RenderFragment component which is in child component it will behave like if we 
+                                    triggered that UI event from child component, that is why child component is re-rendered as well
+
+A3) When components' parameter value has changed
+    - When value of a member with [Parameter] attribute changes
+
+A4) When developers manually trigger rendering
+    - When we manually force the rendering with StateHasChanged() method
