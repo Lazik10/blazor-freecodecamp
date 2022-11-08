@@ -1,8 +1,11 @@
+using BlazorFreeCodeCamp.Services.ConfigureServices;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddFrontEndServices();
 
 var app = builder.Build();
 
