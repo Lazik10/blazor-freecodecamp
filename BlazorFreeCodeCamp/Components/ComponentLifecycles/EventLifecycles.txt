@@ -1,4 +1,4 @@
-﻿//////////////////////////////////////
+﻿ /////////////////////////////////////
 /////     Server-Side Blazor     /////
 //////////////////////////////////////
 
@@ -8,9 +8,9 @@ FIRST PART - User request (Browser request)
 - first time rendering or when refreshing the page
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Parent - SetParametersAsync
-Parent - OnInitialized
-Parent - OnParametersSet
+Parent - SetParametersAsync - used to set parameters
+Parent - OnInitializedAsync - used to load data that are necessary before loading UI, only used once 
+Parent - OnParametersSet - executed when the component receives parameters from the parent
     Child - SetParametersAsync
     Child - OnInitialized
     Child - OnParametersSet
@@ -32,8 +32,8 @@ Parent - OnParametersSet
 
 THIRD PART -
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Parent - ShouldRender() - used only if it's not rendered for the first time
-Parent - OnAfterRender()
+Parent - ShouldRender() - returns true or false to refresh the UI, it is not executed for the first time the component is rendered
+Parent - OnAfterRender() - 
     Child - ShouldRender()
     Child - OnAfterRender()
 
@@ -41,6 +41,11 @@ Parent - OnAfterRender()
 When we initialize our data we should pay attention to where to initialize them
 Best way is to initialize the data in OnAfterRenderAsync with parameter that indicates if it is a first time or not
 it depends if we are using the data to render the page or not, we can also use StateHasChanged() method to rerender the page again
+
+
+
+StateHasChanged()
+Dispose()
 
 /////////////////////////////////
 /////     Web Assembly     //////
@@ -66,4 +71,8 @@ Parent - ShouldRender()
     Child - SouldRender()
 Parent - OnAfterRender()
     Child - OnAfterRender()
- 
+
+
+
+StateHasChanged()
+Dispose()
